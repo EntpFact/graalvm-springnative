@@ -2,7 +2,8 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: kafka-pubsub
-  namespace: default
+scopes:
+  - graalvm-kafkaapp
 spec:
   type: pubsub.kafka
   version: v1
@@ -11,9 +12,13 @@ spec:
       value: "localhost:9092"
     - name: clientID
       value: "graalvm-kafkaapp"
-    - name: consumerGroup
-      value: "graalvm-group"
+    - name: authType
+      value: "none"
+    - name: authRequired
+      value: "false"
     - name: disableTls
       value: "true"
     - name: maxMessageBytes
-      value: "1048576"
+      value: 2048
+    - name: consumeRetryInterval
+      value: 200ms
