@@ -1,0 +1,19 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: kafka-pubsub
+  namespace: default
+spec:
+  type: pubsub.kafka
+  version: v1
+  metadata:
+    - name: brokers
+      value: "localhost:9092"
+    - name: clientID
+      value: "graalvm-kafkaapp"
+    - name: consumerGroup
+      value: "graalvm-group"
+    - name: disableTls
+      value: "true"
+    - name: maxMessageBytes
+      value: "1048576"

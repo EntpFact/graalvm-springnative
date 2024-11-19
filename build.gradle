@@ -1,0 +1,77 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.11'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.graalvm.buildtools.native' version '0.9.28'
+//	id 'maven-publish'
+//	alias(libs.plugins.spring.boot)
+//	alias(libs.plugins.spring.dependency.management)
+
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java.sourceCompatibility = JavaVersion.VERSION_21
+
+
+
+
+//graalvmNative {
+//	binaries {
+//		main {
+//			imageName = 'graalvm-docker-image-gradle'
+//			buildArgs.add('--initialize-at-run-time=ch.qos.logback.classic,ch.qos.logback.core,org.slf4j')
+//			buildArgs.add('--enable-http')
+//			buildArgs.add('--enable-https')
+//		}
+//	}
+//}
+
+
+//tasks.named('build').configure {
+//	dependsOn 'nativeCompile'
+//}
+//
+//
+//graalvmNative {
+//	binaries {
+//		main {
+//			imageName = 'native-image'
+//		}
+//	}
+//}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+
+springBoot {
+	buildInfo()
+}
+
+bootBuildImage {
+	imageName = 'graalvm-docker-image-gradle' // Specify your Docker image name
+	builder = 'paketobuildpacks/builder-jammy-full' // GraalVM native image builder
+	environment = [
+			'BP_MAIN_CLASS' : 'com.example.demo.SpringgraalvmApplication'
+//			'BP_NATIVE_IMAGE': 'true',
+//			'BP_NATIVE_IMAGE_BUILD_ARGUMENTS': '--enable-http --enable-https --initialize-at-build-time=org.bouncycastle'
+
+	]
+}
+
+bootJar {
+	mainClass.set('com.example.demo.SpringgraalvmApplication')
+}
+
+test {
+	useJUnitPlatform()
+}
