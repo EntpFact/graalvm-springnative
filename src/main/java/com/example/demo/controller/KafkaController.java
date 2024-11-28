@@ -58,14 +58,14 @@ public class KafkaController {
 
 
 
-//            String daprUrl = String.format("http://localhost:3500/v1.0/publish/%s/%s",  // for jar file
-//                    pubSubOptions.getPubsubName(),
-//                    pubSubOptions.getTopic());
-
-            String daprUrl = String.format("http://host.docker.internal:3500/v1.0/publish/%s/%s", // for docker image
+            String daprUrl = String.format("http://localhost:9092/v1.0/publish/%s/%s",  // for jar file
                     pubSubOptions.getPubsubName(),
                     pubSubOptions.getTopic());
 
+           /* String daprUrl = String.format("http://host.docker.internal:3500/v1.0/publish/%s/%s", // for docker image
+                    pubSubOptions.getPubsubName(),
+                    pubSubOptions.getTopic());
+*/
 
             Map<String, Object> body = new HashMap<>();
             body.put("data", pubSubOptions.getRequestData());
