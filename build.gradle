@@ -46,30 +46,22 @@ repositories {
 	mavenCentral()
 }
 
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation ('org.springframework.boot:spring-boot-starter-web') { exclude "module": "spring-boot-starter-tomcat" }
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	compileOnly 'org.projectlombok:lombok:1.18.30'
 	annotationProcessor 'org.projectlombok:lombok:1.18.30'
 	implementation 'io.dapr:dapr-sdk:1.12.1'
+	implementation 'org.bouncycastle:bcprov-jdk18on:1.79'  // or appropriate version
+
 
 }
-
 
 springBoot {
 	buildInfo()
-}
-
-bootBuildImage {
-    imageName = 'graalvm-docker-image-gradle' // Specify your Docker image name
-    builder = 'paketobuildpacks/builder-jammy-full' // GraalVM native image builder
-	environment = [
-			'BP_MAIN_CLASS' : 'com.example.demo.SpringgraalvmApplication',
-			'BP_NATIVE_IMAGE': 'true',
-			'BP_NATIVE_IMAGE_BUILD_ARGUMENTS': '--initialize-at-build-time=org.bouncycastle'
-
-	]
 }
 
 bootJar {
@@ -78,4 +70,18 @@ bootJar {
 
 test {
 	useJUnitPlatform()
+}
+
+bootBuildImage {
+	imageName = 'graalvm-docker-image-gradle' // Specify your Docker image name
+	builder = 'paketobuildpacks/builder-jammy-full' // GraalVM native image builder
+
+	environment = [
+		//'BP_MAIN_CLASS' : 'com.example.demo.SpringgraalvmApplication',
+		'BP_NATIVE_IMAGE': 'true',
+		'BP_NATIVE_IMAGE_BUILD_ARGUMENTS' : '--initialize-at-build-time=org.bouncycastle.jsse.BCSSLEngine,org.slf4j,ch.qos.logback --initialize-at-run-time=io.grpc.netty.shaded.io.netty.handler.ssl.BouncyCastleAlpnSslUtils,io.grpc.netty.shaded.io.netty.handler.ssl.OpenSsl,io.grpc.netty.shaded.io.netty.internal.tcnative.SSL,io.grpc.netty.shaded.io.netty.handler.ssl.ReferenceCountedOpenSslEngine,io.grpc.netty.shaded.io.netty.internal.tcnative.SSLPrivateKeyMethod,io.grpc.netty.shaded.io.netty.internal.tcnative.SSLPrivateKeyMethod,io.grpc.netty.shaded.io.netty.internal.tcnative.AsyncSSLPrivateKeyMethod,io.grpc.netty.shaded.io.netty.internal.tcnative.CertificateCompressionAlgo,io.grpc.netty.shaded.io.netty.internal.tcnative.CertificateVerifier,io.grpc.netty.shaded.io.netty.handler.ssl.OpenSslAsyncPrivateKeyMethod,io.grpc.netty.shaded.io.netty.handler.ssl.OpenSslPrivateKeyMethod'// --trace-class-initialization=io.grpc.netty.shaded.io.netty.util.AbstractReferenceCounted,ch.qos.logback.core.util.Loader,io.grpc.netty.shaded.io.netty.buffer.PooledSlicedByteBuf,io.grpc.netty.shaded.io.netty.buffer.PooledByteBuf,io.grpc.netty.shaded.io.netty.buffer.PooledUnsafeDirectByteBuf,ch.qos.logback.core.status.InfoStatus,io.grpc.netty.shaded.io.netty.buffer.UnpooledDirectByteBuf,io.grpc.netty.shaded.io.netty.handler.ssl.PemPrivateKey,io.grpc.netty.shaded.io.netty.buffer.AbstractPooledDerivedByteBuf,io.grpc.netty.shaded.io.netty.buffer.UnpooledHeapByteBuf,ch.qos.logback.core.CoreConstants,ch.qos.logback.core.util.StatusPrinter,org.slf4j.LoggerFactory,org.slf4j.helpers.Reporter,io.grpc.netty.shaded.io.netty.handler.ssl.PemValue,ch.qos.logback.classic.Logger,io.grpc.netty.shaded.io.netty.buffer.PooledByteBufAllocator,ch.qos.logback.core.status.StatusBase,io.grpc.netty.shaded.io.netty.buffer.AbstractReferenceCountedByteBuf,io.grpc.netty.shaded.io.netty.buffer.UnpooledUnsafeDirectByteBuf,io.grpc.netty.shaded.io.netty.buffer.ByteBufAllocator,io.grpc.netty.shaded.io.netty.buffer.UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeDirectByteBuf,ch.qos.logback.classic.Level,io.grpc.netty.shaded.io.netty.buffer.ByteBufUtil'
+		//'BP_NATIVE_IMAGE_BUILD_ARGUMENTS': '--initialize-at-run-time=io.grpc.netty.shaded.io.netty.handler.ssl.BouncyCastleAlpnSslUtils'
+		//'BP_NATIVE_IMAGE_BUILD_ARGUMENTS': '--initialize-at-build-time=org.slf4j,ch.qos.logback'
+
+	]
 }

@@ -1,0 +1,26 @@
+[
+  {
+    "name": "org.bouncycastle.jsse.BCSSLEngine",
+    "methods": [
+      {
+        "name": "getSSLSession",
+        "parameterTypes": []
+      },
+      {
+        "name": "engineInit",
+        "parameterTypes": [
+          "javax.net.ssl.SSLContext"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "io.grpc.netty.shaded.io.netty.channel.socket.nio.NioSocketChannel",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  }
+]
