@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 //
-//import com.example.demo.config.PubSubOptions;
+//import com.example.demo.dto.PubSubOptions;
 //import com.example.demo.service.KafkaService;
 //import com.hdfcbank.il.core.config.ILCoreConfig;
 //import lombok.extern.slf4j.Slf4j;

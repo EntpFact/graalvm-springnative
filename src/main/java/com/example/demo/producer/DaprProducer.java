@@ -1,6 +1,6 @@
 //package com.example.demo.producer;
 //
-//import com.example.demo.config.PubSubOptions;
+//import com.example.demo.dto.PubSubOptions;
 //import io.dapr.client.DaprClient;
 //import io.dapr.client.domain.PublishEventRequest;
 //import lombok.extern.slf4j.Slf4j;

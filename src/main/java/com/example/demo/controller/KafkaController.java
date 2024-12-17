@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.config.PubSubOptions;
+import com.example.demo.dto.PubSubOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;

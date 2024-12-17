@@ -1,6 +1,6 @@
 package com.example.demo.producer;
 
-import com.example.demo.config.PubSubOptions;
+import com.example.demo.dto.PubSubOptions;
 import io.dapr.client.DaprClient;
 import io.dapr.client.domain.PublishEventRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -20,21 +20,10 @@ public class DaprProducerNew {
     public Mono<Void> publishEvent(PubSubOptions pubSubOptions) {
         PublishEventRequest eventRequest= new PublishEventRequest(pubSubOptions.getPubsubName(),pubSubOptions.getTopic(),pubSubOptions.getData());
         eventRequest.setMetadata(pubSubOptions.getMetadata());
-//        Context context = getOpenTelemetryContext();
-//        Mono<Void> response=  daprClient.publishEvent(eventRequest)
-//                .contextWrite(OpenTelemetryConfig.getReactorContext(context));
 
         return daprClient.publishEvent(eventRequest)
                 .doOnSuccess((s) -> log.info("success publishMessage {}", pubSubOptions))
                 .doOnError(Exception.class, (s) -> log.error("error publishMessage {}", pubSubOptions));
 
-        /*InvokeBindingRequest invokeBindingRequest = new InvokeBindingRequest("kafka-pubsub", "create");
-        invokeBindingRequest.setData(pubSubOptions.getRequestData());
-        invokeBindingRequest.setMetadata(pubSubOptions.getMetadata());
-
-        return daprClient.invokeBinding(invokeBindingRequest, TypeRef.VOID)
-                .doOnSuccess((s) -> log.info("success publishMessage {}", pubSubOptions))
-                .doOnError(Exception.class, (s) -> log.error("error publishMessage {}", pubSubOptions));
-*/
     }
 }

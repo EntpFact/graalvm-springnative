@@ -5,7 +5,7 @@ metadata:
 spec:
   topic: test-topic
   routes:
-    default: /dapr/consume
+    default: /consumer/consume
   pubsubname: kafka-pubsub
 scopes:
-  - graalvm-app
+- graalvm-app

@@ -3,7 +3,7 @@
 ////import com.hdfcbank.messageconnect.config.PubSubOptions;
 ////import com.hdfcbank.messageconnect.dapr.producer.DaprProducer;
 ////import lombok.extern.slf4j.Slf4j;
-//import com.example.demo.config.PubSubOptions;
+//import com.example.demo.dto.PubSubOptions;
 ////import com.example.demo.producer.DaprProducer;
 //import io.dapr.client.DaprClient;
 //import io.dapr.client.DaprClientBuilder;

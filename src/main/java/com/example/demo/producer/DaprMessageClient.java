@@ -2,7 +2,7 @@
 //
 ////import com.hdfcbank.messageconnect.config.BindingOptions;
 ////import com.hdfcbank.messageconnect.config.PubSubOptions;
-//import com.example.demo.config.PubSubOptions;
+//import com.example.demo.dto.PubSubOptions;
 //import reactor.core.publisher.Mono;
 //
 //public interface DaprMessageClient {
