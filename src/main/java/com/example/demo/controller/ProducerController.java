@@ -2,14 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.config.PubSubOptions;
 import com.example.demo.producer.DaprProducerNew;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 //import reactor.core.publisher.Mono;
 
+@Slf4j
 @RestController
 @RequestMapping("dapr")
 public class ProducerController {
@@ -18,9 +17,16 @@ public class ProducerController {
     private DaprProducerNew producerNew;
 
     @PostMapping("/publish")
-    public Mono<String> publishMessage(@RequestBody PubSubOptions message) {
+    public Mono<Void> publishMessage(@RequestBody PubSubOptions message) {
 
-        producerNew.publishEvent(message);
-        return Mono.just("success");
+        log.info("entered publishMessage {}", message);
+        return producerNew.publishEvent(message);
+    }
+
+    @GetMapping("/message")
+    public Mono<String> getMessage() {
+
+        log.info("entered getMessage");
+        return  Mono.just("message");
     }
 }

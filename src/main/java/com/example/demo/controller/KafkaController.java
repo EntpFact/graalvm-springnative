@@ -2,8 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.config.PubSubOptions;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -68,13 +66,13 @@ public class KafkaController {
 */
 
             Map<String, Object> body = new HashMap<>();
-            body.put("data", pubSubOptions.getRequestData());
+            body.put("data", pubSubOptions.getData());
             body.put("metadata", pubSubOptions.getMetadata());
 
 
 
             log.info("Dapr URL: {}", daprUrl);
-            log.info("Message Data: {}", pubSubOptions.getRequestData());
+            log.info("Message Data: {}", pubSubOptions.getData());
 
             try {
                 HttpHeaders headers = new HttpHeaders();

@@ -14,14 +14,22 @@ package com.example.demo.config;
 //        private Map<String, String> metadata;
 //}
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.Map;
 
+@Getter
+@Setter
+@ToString
 public class PubSubOptions {
     private String pubsubName;
     private String topic;
-    private Object requestData;
+    private PubSubData data;
     private Map<String, String> metadata;
 
+/*
     // Getters and Setters
     public String getPubsubName() {
         return pubsubName;
@@ -54,4 +62,5 @@ public class PubSubOptions {
     public void setMetadata(Map<String, String> metadata) {
         this.metadata = metadata;
     }
+*/
 }
